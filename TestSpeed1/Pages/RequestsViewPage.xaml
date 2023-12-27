@@ -1,0 +1,87 @@
+﻿<Page x:Class="TestSpeed1.Pages.RequestsViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestSpeed1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Заявки" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox x:Name="txtSearch" Text="" TextChanged="txtSearch_TextChanged"/>
+            <ComboBox Name="cboxSort" SelectionChanged="cboxSort_SelectionChanged" MaxWidth="300" MinWidth="150" Width="auto">
+                <ComboBoxItem Content="Без сортировки"></ComboBoxItem>
+                <ComboBoxItem Content="Наименование (По возрастанию)"></ComboBoxItem>
+                <ComboBoxItem Content="Наименование (По убыванию)"></ComboBoxItem>
+            </ComboBox>
+            <ComboBox Name="cboxFilter" SelectionChanged="cboxFilter_SelectionChanged" DisplayMemberPath="Name" MaxWidth="300" MinWidth="150" Width="auto"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <TextBlock Style="{StaticResource GeneralLabel}" TextAlignment="Center" Name="tbkItemCounter" Width="auto"/>
+        </StackPanel>
+        <ListView Grid.Row="2" Name="LViewProduct">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="{StaticResource colorAccent}" Margin="5" BorderThickness="1" ToolTip="{Binding Description}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.15*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.15*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Margin="5" Grid.Column="0">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource MainBlock}" Text="{Binding DeviceAndProblemText}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource SubBlock}" Text="{Binding DatesOfRequest}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Margin="5" Grid.Column="1">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel>
+                                        <TextBlock Text="Описание проблемы:" Style="{StaticResource SubBlock}"/>
+                                        <TextBlock Style="{StaticResource SubBlock}" Text="{Binding Description}" MaxHeight="200" MaxWidth="250" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Margin="5" Grid.Column="2">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
+                                        <TextBlock Style="{StaticResource MainBlock}" Foreground="{StaticResource colorAccent}"
+                                            Text="{Binding StatusText}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource SubBlock}" Foreground="{StaticResource colorAccent}"
+                                            Text="{Binding ClientInfo}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button HorizontalAlignment="Right" Grid.Row="3"
+                Content="Добавить" Name="btnAdd" Click="BtnAdd_Click"/>
+        <Button HorizontalAlignment="Left" Grid.Row="3"
+                Content="Удалить" Name="btnDelete" Click="BtnDelete_Click" Visibility="{Binding AdminVisibility}"/>
+    </Grid>
+</Page>
+

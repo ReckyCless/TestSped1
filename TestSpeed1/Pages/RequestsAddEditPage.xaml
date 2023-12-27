@@ -1,0 +1,78 @@
+﻿<Page x:Class="TestSpeed1.Pages.RequestsAddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestSpeed1.Pages"
+      mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="1000"
+    Title="Заявки. Добавление">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <!--BlockUserInfo + BlockAdminManagerInfo-->
+                <StackPanel VerticalAlignment="Center" Width="auto">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Style="{StaticResource MainBlock}" Text="Имя*" Width="165"/>
+                        <TextBox Text="{Binding Clients.FirstName}" PreviewTextInput="TextValidationTextBox" PreviewKeyDown="TextBox_PreviewKeyDownNoSpace" MaxLength="500"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Style="{StaticResource MainBlock}" Text="Фамилия*" Width="165"/>
+                        <TextBox Text="{Binding Clients.SecondName}" PreviewTextInput="TextValidationTextBox" PreviewKeyDown="TextBox_PreviewKeyDownNoSpace" MaxLength="500"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Style="{StaticResource MainBlock}" Text="Отчество*" Width="165"/>
+                        <TextBox Text="{Binding Clients.Patronymic}" PreviewTextInput="TextValidationTextBox" PreviewKeyDown="TextBox_PreviewKeyDownNoSpace" MaxLength="500"/>
+                    </StackPanel>
+
+                    <StackPanel Visibility="{Binding AdminVisibility}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Style="{StaticResource MainBlock}" Text="Статус*" Width="165"/>
+                            <ComboBox SelectedItem="{Binding Statuses}" Name="cboxStatus" DisplayMemberPath="Name" SelectionChanged="cboxStatus_SelectionChanged"/>
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Style="{StaticResource MainBlock}" Text="Работник*" Width="165"/>
+                            <ComboBox SelectedItem="{Binding Workers}" Name="cboxWorkers" DisplayMemberPath="FullName"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+
+                <StackPanel VerticalAlignment="Center" Width="auto">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource MainBlock}" Text="Устройство*" Width="210"/>
+                        <ComboBox SelectedItem="{Binding Devices}" Name="cboxDevice" DisplayMemberPath="Name"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Style="{StaticResource MainBlock}" Text="Тип поломки*" Width="210"/>
+                        <ComboBox SelectedItem="{Binding TypesOfProblems}" Name="cboxProblem" DisplayMemberPath="Name"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Style="{StaticResource MainBlock}" Text="Описание*" Width="210"/>
+                        <TextBox x:Name="txtAuthor" Text="{Binding Description}" TextWrapping="Wrap" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" HorizontalAlignment="Right" MaxHeight="200" MinHeight="35" Height="auto" MaxLength="20000"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock  Style="{StaticResource MainBlock}" Text="Дата заявления*" Width="210"/>
+                        <DatePicker x:Name="dtBeginDate" SelectedDate="{Binding BeginDate}" Width="200" Margin="5" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="{Binding AdminVisibility}">
+                        <TextBlock  Style="{StaticResource MainBlock}" Text="Дата завершения*" Width="210"/>
+                        <DatePicker x:Name="dtEndDate" SelectedDate="{Binding EndDate}" Width="200" Margin="5" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <Button Content="Сохранить" Click="BtnSave_Click" Width="300"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
